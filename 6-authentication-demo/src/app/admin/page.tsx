@@ -1,20 +1,11 @@
 import { clerkClient } from "@clerk/nextjs/server";
 import { removeRole, setRole } from "./action";
+import type { User, EmailAddress } from "@clerk/backend";
 
 export default async function Admin() {
   const client = await clerkClient();
 
   const users = (await client.users.getUserList()).data;
-//   console.log(users);
-
-  type User = {
-    id: string;
-    firstName?: string | null;
-    lastName?: string | null;
-    emailAddresses: { id: string; emailAddress: string }[];
-    primaryEmailAddressId: string;
-    publicMetadata: { role?: string };
-  };
 
   return (
     <>
@@ -36,7 +27,7 @@ export default async function Admin() {
               <div className="dark:text-neutral-200">
                 {
                   user.emailAddresses.find(
-                    (email) => email.id === user.primaryEmailAddressId
+                    (email: EmailAddress) => email.id === user.primaryEmailAddressId
                   )?.emailAddress
                 }
               </div>
