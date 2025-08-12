@@ -2,6 +2,16 @@ import { clerkClient } from "@clerk/nextjs/server";
 import { removeRole, setRole } from "./action";
 import type { User, EmailAddress } from "@clerk/backend";
 
+export const metadata = {
+  title: "ShanTech | Admin",
+  description:
+    "This is a website create by Zeeshan using NextJS React Framework",
+  keywords: ["imerzeeshan", "iamerzeeshan", "Zeeshan", "shan"],
+  icons: {
+    icon: "/icon2.svg",
+  },
+};
+
 export default async function Admin() {
   const client = await clerkClient();
 
@@ -27,7 +37,8 @@ export default async function Admin() {
               <div className="dark:text-neutral-200">
                 {
                   user.emailAddresses.find(
-                    (email: EmailAddress) => email.id === user.primaryEmailAddressId
+                    (email: EmailAddress) =>
+                      email.id === user.primaryEmailAddressId
                   )?.emailAddress
                 }
               </div>

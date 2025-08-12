@@ -13,9 +13,14 @@ export const Counter = () => {
   if (!isLoaded || !isSignedIn) return null;
 
   return (
-    <>
+    <div className="flex flex-col items-center gap-4">
       <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-    </>
+      <button
+        className="bg-blue-500 px-3 py-2 rounded hover:bg-blue-600 transition-all ease-in-out duration-300"
+        onClick={() => setCount(count + 1)}
+      >
+        Increment
+      </button>
+    </div>
   );
 };
