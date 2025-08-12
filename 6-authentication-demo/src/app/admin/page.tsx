@@ -6,9 +6,18 @@ export default async function Admin() {
 
   const users = (await client.users.getUserList()).data;
 
+  type User = {
+    id: string;
+    firstName?: string;
+    lastName?: string;
+    emailAddresses: { id: string; emailAddress: string }[];
+    primaryEmailAddressId: string;
+    publicMetadata: { role?: string };
+  };
+
   return (
     <>
-      {users.map((user: any) => {
+      {users.map((user: User) => {
         return (
           <div
             key={user.id}
@@ -26,7 +35,7 @@ export default async function Admin() {
               <div className="dark:text-neutral-200">
                 {
                   user.emailAddresses.find(
-                    (email: any) => email.id === user.primaryEmailAddressId
+                    (email) => email.id === user.primaryEmailAddressId
                   )?.emailAddress
                 }
               </div>
