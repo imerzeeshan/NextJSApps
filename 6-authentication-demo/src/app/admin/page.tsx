@@ -5,11 +5,12 @@ export default async function Admin() {
   const client = await clerkClient();
 
   const users = (await client.users.getUserList()).data;
+//   console.log(users);
 
   type User = {
     id: string;
-    firstName?: string;
-    lastName?: string;
+    firstName?: string | null;
+    lastName?: string | null;
     emailAddresses: { id: string; emailAddress: string }[];
     primaryEmailAddressId: string;
     publicMetadata: { role?: string };
