@@ -13,13 +13,15 @@ export async function GET(
       [id]
     );
 
-    if (rows.length === 0) {
+    const imageRows = rows as Array<{ name: string; data: Buffer }>;
+
+    if (imageRows.length === 0) {
       return NextResponse.json({ error: "Image not found" }, { status: 404 });
     }
-    const { name, data } = rows[0];
+    const { name, data } = imageRows[0];
     const fileExtension = name.split(".").pop() || "jpeg";
 
-    return new NextResponse(data, {
+    return new NextResponse(new Uint8Array(data), {
       headers: {
         "Content-Type": `image/${fileExtension}`,
         "Content-Disposition": `inline; filename="${name}"`,

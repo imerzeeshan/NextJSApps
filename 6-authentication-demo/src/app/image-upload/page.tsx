@@ -53,7 +53,7 @@ export default function Home() {
         <h1 className="text-2xl mt-10 underline underline-offset-2">
           Image List
         </h1>
-        <div className="flex gap-5">
+        <div className="flex flex-wrap gap-5 justify-center">
           {images?.map((img) => (
             <div key={img.id} className="space-y-2">
               <p>{img.name}</p>
