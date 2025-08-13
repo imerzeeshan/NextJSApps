@@ -5,6 +5,8 @@ export const db = mysql.createPool({
   user: "root",
   password: "ADCPZ2740F@#786f",
   database: "hospital_db",
+  port: 3306,
+  ssl: { rejectUnauthorized: true }, // Needed for cloud DBs
 });
 
 try {
