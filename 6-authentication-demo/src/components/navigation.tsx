@@ -20,6 +20,7 @@ export const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { sessionClaims } = useAuth();
   const isAdmin = sessionClaims?.metadata?.role === "admin";
+  // console.log(sessionClaims !== null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,19 +71,52 @@ export const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="flex space-x-6">
-              {navLinks.map((link) => (
+              {/* {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400 ${
-                    link.signedIn ? "hidden sm:block" : ""
-                  } ${link.adminOnly && !isAdmin ? "hidden" : ""} ${
-                    link.signedIn && !link.adminOnly ? "hidden sm:block" : ""
-                  }`}
+                  className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400 
+                    ${link.signedIn && sessionClaims === null ? "hidden" : ""} 
+                    ${link.adminOnly && !isAdmin ? "hidden" : ""} 
+                    ${link.signedIn && !link.adminOnly ? "hidden" : ""}`}
                 >
                   {link.name}
                 </Link>
-              ))}
+              ))} */}
+              <Link
+                className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400`}
+                href={"/"}
+              >
+                Home
+              </Link>
+              <SignedIn>
+                <Link
+                  className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400`}
+                  href={"/dashboard"}
+                >
+                  Dashboard
+                </Link>
+              </SignedIn>
+              <Link
+                className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400`}
+                href={"/"}
+              >
+                About
+              </Link>
+              <Link
+                className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400`}
+                href={"/contact"}
+              >
+                Contact
+              </Link>
+              {isAdmin && (
+                <Link
+                  className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400`}
+                  href={"/admin"}
+                >
+                  Admin
+                </Link>
+              )}
             </div>
 
             <div className="flex items-center space-x-4">
@@ -118,6 +152,7 @@ export const Navigation = () => {
                       <div className="py-1">
                         <Link
                           href="/user-profile"
+                          onClick={() => setIsOpen(!isOpen)}
                           className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
                           Profile
@@ -183,7 +218,7 @@ export const Navigation = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navLinks.map((link) => (
+            {/* {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
@@ -196,17 +231,67 @@ export const Navigation = () => {
               >
                 {link.name}
               </Link>
-            ))}
+            ))} */}
+            <Link
+              className={`block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 
+                hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700`}
+              onClick={toggleMobileMenu}
+              href={"/"}
+            >
+              Home
+            </Link>
+            <SignedIn>
+              <Link
+                className={`block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 
+                hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700`}
+                onClick={toggleMobileMenu}
+                href={"/dashboard"}
+              >
+                Dashboard
+              </Link>
+            </SignedIn>
+            <Link
+              className={`block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 
+                hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700`}
+              onClick={toggleMobileMenu}
+              href={"/"}
+            >
+              About
+            </Link>
+            <Link
+              className={`block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 
+                hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700`}
+              onClick={toggleMobileMenu}
+              href={"/contact"}
+            >
+              Contact
+            </Link>
+            {isAdmin && (
+              <Link
+                className={`block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 
+                hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700`}
+                onClick={toggleMobileMenu}
+                href={"/admin"}
+              >
+                Admin
+              </Link>
+            )}
 
             <SignedOut>
               <div className="pt-4 pb-2 border-t border-gray-200 dark:border-gray-700">
                 <SignInButton>
-                  <button className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20">
+                  <button
+                    onClick={toggleMobileMenu}
+                    className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                  >
                     Sign In
                   </button>
                 </SignInButton>
                 <SignUpButton>
-                  <button className="w-full mt-2 px-3 py-2 rounded-md text-base font-medium bg-blue-600 text-white hover:bg-blue-700">
+                  <button
+                    onClick={toggleMobileMenu}
+                    className="w-full mt-2 px-3 py-2 rounded-md text-base font-medium bg-blue-600 text-white hover:bg-blue-700"
+                  >
                     Sign Up
                   </button>
                 </SignUpButton>
@@ -223,7 +308,10 @@ export const Navigation = () => {
                   Profile
                 </Link>
                 <SignOutButton>
-                  <button className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <button
+                    onClick={toggleMobileMenu}
+                    className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
                     Sign Out
                   </button>
                 </SignOutButton>

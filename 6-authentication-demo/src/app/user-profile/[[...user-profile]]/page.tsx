@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function UserProfilePage() {
   return (
-    <div className="flex justify-center items-center py-8">
+    <div className="min-h-screen flex justify-center items-center pt-25 py-8">
       <UserProfile path="/user-profile" />
     </div>
   );
