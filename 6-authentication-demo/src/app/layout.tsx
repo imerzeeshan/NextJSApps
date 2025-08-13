@@ -1,6 +1,7 @@
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Navigation } from "@/components/navigation";
+import Footer from "@/components/footer";
 
 export const metadata = {
   title: "ShanTech",
@@ -43,6 +44,7 @@ export default function RootLayout({
         <body>
           <Navigation />
           {children}
+          <Footer />
         </body>
       </html>
     </ClerkProvider>
