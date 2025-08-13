@@ -23,7 +23,7 @@ export const UserRow = ({ user }: UserRowProps) => {
             className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center 
               justify-center overflow-hidden"
           >
-            {!user.imageUrl ? (
+            {user.imageUrl ? (
               <Image
                 src={user?.imageUrl}
                 alt="user profile log"
