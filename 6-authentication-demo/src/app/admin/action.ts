@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function setRole(formData: FormData) {
   const { sessionClaims } = await auth();
+  console.log(sessionClaims);
 
   if (sessionClaims?.metadata?.role !== "admin") {
     throw new Error("Not Authorized");

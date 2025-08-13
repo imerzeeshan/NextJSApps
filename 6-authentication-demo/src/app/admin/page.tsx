@@ -2,7 +2,7 @@ import { clerkClient } from "@clerk/nextjs/server";
 import { AdminHeader } from "./AdminHeader";
 import { StatsOverview } from "./StatsOverview";
 import { UserTable } from "./UserTable";
-import type { User, EmailAddress } from "@clerk/backend";
+import type { User } from "@clerk/backend";
 
 export const metadata = {
   title: "ShanTech | Admin Dashboard",
