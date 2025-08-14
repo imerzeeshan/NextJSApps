@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
@@ -22,7 +22,7 @@ export async function GET(
     return new NextResponse(new Uint8Array(data), {
       headers: {
         "Content-Type": `image/${fileExtension}`,
-        "Content-Disposition": `inline; filename="${name}"`,
+        "Content-Disposition": "no-store", //! Prevents static caching
       },
     });
   } catch (error) {
