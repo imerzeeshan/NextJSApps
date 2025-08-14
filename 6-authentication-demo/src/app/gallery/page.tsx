@@ -1,7 +1,9 @@
 "use client";
+import { useAuth } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { isatty } from "tty";
 
 type Image = {
   id: number;
@@ -12,6 +14,8 @@ export default function Home() {
   const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const [images, setImages] = useState<Image[]>([]);
+  const { sessionClaims } = useAuth();
+  const isAdmin = sessionClaims?.metadata.role === "admin";
 
   const handleUpload = async () => {
     if (!file) return;
@@ -22,7 +26,7 @@ export default function Home() {
       method: "POST",
       body: formData,
     });
-    console.log(await res.json());
+    // console.log(await res.json());
     router.refresh();
   };
 
@@ -30,7 +34,7 @@ export default function Home() {
     const res = await fetch("/api/image");
     if (!res.ok) throw new Error("Failed to fetch images");
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     setImages(data);
   };
 
@@ -42,19 +46,21 @@ export default function Home() {
 
   return (
     <div className="min-h-screen px-1 md:max-w-[90%] lg:max-w-[80%] mx-auto flex flex-col items-center space-y-3 pt-25">
-      <div className="space-x-5">
-        <input
-          className="border rounded p-2"
-          type="file"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-        />
-        <button
-          className="bg-blue-600 hover:bg-blue-700 py-2 px-3 rounded transition-all duration-300"
-          onClick={handleUpload}
-        >
-          Upload
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="space-x-5">
+          <input
+            className="border rounded p-2"
+            type="file"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+          />
+          <button
+            className="bg-blue-600 hover:bg-blue-700 py-2 px-3 rounded transition-all duration-300"
+            onClick={handleUpload}
+          >
+            Upload
+          </button>
+        </div>
+      )}
 
       <>
         <h1 className="text-2xl mt-10 underline underline-offset-2">

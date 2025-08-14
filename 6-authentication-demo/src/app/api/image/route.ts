@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(photo, { status: 201 });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return NextResponse.json(
       { error: "Failed to upload image" },
       { status: 500 }
@@ -37,7 +37,7 @@ export async function GET() {
     }));
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return NextResponse.json(
       { error: "Failed to upload image" },
       { status: 500 }

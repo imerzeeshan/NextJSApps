@@ -109,6 +109,12 @@ export const Navigation = () => {
               >
                 Contact
               </Link>
+              <Link
+                className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400`}
+                href={"/gallery"}
+              >
+                Gallery
+              </Link>
               {isAdmin && (
                 <Link
                   className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400`}

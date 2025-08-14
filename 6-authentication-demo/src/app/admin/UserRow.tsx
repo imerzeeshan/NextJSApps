@@ -13,7 +13,7 @@ export const UserRow = ({ user }: UserRowProps) => {
     (email: EmailAddress) => email.id === user.primaryEmailAddressId
   )?.emailAddress;
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
