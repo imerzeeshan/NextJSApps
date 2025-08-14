@@ -33,7 +33,9 @@ export default function Home() {
   };
 
   useEffect(() => {
-    getAllImages();
+    if (typeof window !== "undefined") {
+      getAllImages();
+    }
   }, []);
 
   return (
