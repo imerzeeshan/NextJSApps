@@ -68,6 +68,8 @@ export default function Home() {
                 <Image
                   src={`/api/image/${img.id}`}
                   alt={img.name}
+                  width={50}
+                  height={60}
                   unoptimized
                   className="w-full h-full hover:scale-105 transition-all duration-300 rounded"
                 />
