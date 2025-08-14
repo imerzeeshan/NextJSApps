@@ -76,6 +76,7 @@ export default function Home() {
                   alt={img.name}
                   width={50}
                   height={60}
+                  placeholder="blur"
                   unoptimized
                   className="w-full h-full hover:scale-105 transition-all duration-300 rounded"
                 />
