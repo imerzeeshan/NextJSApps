@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Image = {
@@ -7,6 +8,7 @@ type Image = {
 };
 
 export default function Home() {
+  const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const [images, setImages] = useState<Image[]>([]);
 
@@ -15,15 +17,16 @@ export default function Home() {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch("/api/upload", {
+    const res = await fetch("/api/image", {
       method: "POST",
       body: formData,
     });
     console.log(await res.json());
+    getAllImages();
   };
 
   const getAllImages = async () => {
-    const res = await fetch("/api/upload");
+    const res = await fetch("/api/image");
     const data = await res.json();
     console.log(data);
     setImages(data);
@@ -34,7 +37,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col items-center space-y-3 pt-25">
+    <div className="min-h-screen px-1 md:max-w-[90%] lg:max-w-[80%] mx-auto flex flex-col items-center space-y-3 pt-25">
       <div className="space-x-5">
         <input
           className="border rounded p-2"
@@ -53,10 +56,10 @@ export default function Home() {
         <h1 className="text-2xl mt-10 underline underline-offset-2">
           Image List
         </h1>
-        <div className="flex flex-wrap gap-5 justify-center">
+        <div className="flex flex-wrap gap-3 justify-center">
           {images?.map((img) => (
             <div key={img.id} className="space-y-2">
-              <p>{img.name}</p>
+              <p className="overflow-hidden">{img.name}</p>
               <div className="overflow-hidden w-50 h-60">
                 <img
                   src={`/api/image/${img.id}`}

@@ -1,4 +1,4 @@
-import { db } from "@/config/db";
+import { prisma } from "@/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(
@@ -8,17 +8,15 @@ export async function GET(
   try {
     const { id } = await params;
 
-    const [rows] = await db.execute(
-      `SELECT name,data FROM images WHERE id = ?`,
-      [id]
-    );
+    const photo = await prisma.photo.findUnique({
+      where: { id: Number(id) },
+    });
 
-    const imageRows = rows as Array<{ name: string; data: Buffer }>;
-
-    if (imageRows.length === 0) {
+    if (!photo) {
       return NextResponse.json({ error: "Image not found" }, { status: 404 });
     }
-    const { name, data } = imageRows[0];
+
+    const { name, data } = photo;
     const fileExtension = name.split(".").pop() || "jpeg";
 
     return new NextResponse(new Uint8Array(data), {
