@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -22,11 +23,12 @@ export default function Home() {
       body: formData,
     });
     console.log(await res.json());
-    getAllImages();
+    router.refresh();
   };
 
   const getAllImages = async () => {
     const res = await fetch("/api/image");
+    if (!res.ok) throw new Error("Failed to fetch images");
     const data = await res.json();
     console.log(data);
     setImages(data);
@@ -63,7 +65,7 @@ export default function Home() {
             <div key={img.id} className="space-y-2">
               <p className="overflow-hidden">{img.name}</p>
               <div className="overflow-hidden w-50 h-60">
-                <img
+                <Image
                   src={`/api/image/${img.id}`}
                   alt={img.name}
                   className="w-full h-full hover:scale-105 transition-all duration-300 rounded"
