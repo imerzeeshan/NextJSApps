@@ -35,8 +35,15 @@ export async function GET() {
       name: p.name,
       data: p.data,
     }));
-    
-    return NextResponse.json(result, { status: 200 });
+
+    return NextResponse.json(result, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+      },
+    });
   } catch (error) {
     // console.error(error);
     return NextResponse.json(

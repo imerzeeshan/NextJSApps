@@ -23,7 +23,7 @@ export default function Home() {
   // console.log(isPending);
 
   const getAllImages = async () => {
-    const res = await fetch("/api/image");
+    const res = await fetch("/api/image", { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to fetch images");
     const data = await res.json();
     // console.log(data);
