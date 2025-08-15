@@ -6,6 +6,7 @@ const isPublicRoute = createRouteMatcher([
   "/",
   "/about",
   "/contact",
+  "/gallery",
   "/sign-in(.*)",
   "/sign-up(.*)",
 ]);
@@ -35,4 +36,7 @@ export const config = {
     // Always run for API routes
     "/(api|trpc)(.*)",
   ],
+  // api: {
+  //   bodyParser: false,
+  // },
 };

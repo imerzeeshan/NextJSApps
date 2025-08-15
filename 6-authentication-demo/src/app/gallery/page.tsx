@@ -1,9 +1,8 @@
 "use client";
 import { useAuth } from "@clerk/nextjs";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { isatty } from "tty";
+import { useActionState, useEffect, useState } from "react";
+import { UploadState, uploadImage } from "./gallery.action";
 
 type Image = {
   id: number;
@@ -11,30 +10,22 @@ type Image = {
 };
 
 export default function Home() {
-  const router = useRouter();
-  const [file, setFile] = useState<File | null>(null);
   const [images, setImages] = useState<Image[]>([]);
   const { sessionClaims } = useAuth();
   const isAdmin = sessionClaims?.metadata.role === "admin";
 
-  const handleUpload = async () => {
-    if (!file) return;
-    const formData = new FormData();
-    formData.append("file", file);
+  const [state, formAction, isPending] = useActionState<UploadState, FormData>(
+    uploadImage,
+    undefined
+  );
 
-    const res = await fetch("/api/image", {
-      method: "POST",
-      body: formData,
-    });
-    // console.log(await res.json());
-    router.refresh();
-  };
+  // console.log(isPending);
 
   const getAllImages = async () => {
     const res = await fetch("/api/image");
     if (!res.ok) throw new Error("Failed to fetch images");
     const data = await res.json();
-    // console.log(data);
+    console.log(data);
     setImages(data);
   };
 
@@ -42,23 +33,31 @@ export default function Home() {
     if (typeof window !== "undefined") {
       getAllImages();
     }
-  }, []);
+  }, [state?.success]);
 
   return (
-    <div className="min-h-screen px-1 md:max-w-[90%] lg:max-w-[80%] mx-auto flex flex-col items-center space-y-3 pt-25">
+    <div
+      className="min-h-screen px-1 md:max-w-[90%] lg:max-w-[80%] mx-auto flex flex-col items-center 
+    space-y-3 pt-25"
+    >
       {isAdmin && (
-        <div className="space-x-5">
-          <input
-            className="border rounded p-2"
-            type="file"
-            onChange={(e) => setFile(e.target.files?.[0] || null)}
-          />
-          <button
-            className="bg-blue-600 hover:bg-blue-700 py-2 px-3 rounded transition-all duration-300"
-            onClick={handleUpload}
-          >
-            Upload
-          </button>
+        <div>
+          <form action={formAction} className="space-x-5">
+            <input
+              className="border rounded p-2"
+              type="file"
+              name="file"
+              // onChange={(e) => setFile(e.target.files?.[0] || null)}
+            />
+            <button
+              type="submit"
+              disabled={isPending}
+              className="bg-blue-600 hover:bg-blue-700 py-2 px-3 rounded transition-all duration-300
+              disabled:cursor-not-allowed disabled:bg-gray-500"
+            >
+              Upload
+            </button>
+          </form>
         </div>
       )}
 
@@ -68,19 +67,21 @@ export default function Home() {
         </h1>
         <div className="flex flex-wrap gap-3 justify-center">
           {images?.map((img) => (
-            <div key={img.id} className="space-y-2">
-              <p className="overflow-hidden">{img.name}</p>
-              <div className="overflow-hidden w-50 h-60">
+            <div key={img.id} className="space-y-2 bg-purple-200 rounded text-gray-500 group">
+              <div className="overflow-hidden w-[200px] h-[240px]">
                 <Image
                   src={`/api/image/${img.id}`}
                   alt={img.name}
-                  width={50}
-                  height={60}
-                  placeholder="blur"
+                  width={200}
+                  height={240}
+                  loading="lazy"
+                  quality={100}
+                  priority={false}
                   unoptimized
-                  className="w-full h-full hover:scale-105 transition-all duration-300 rounded"
+                  className="w-full h-full group-hover:scale-105 transition-all duration-300 rounded-t"
                 />
               </div>
+              <p className="text-xl p-3">{img.name.slice(0,15)}</p>
             </div>
           ))}
         </div>
