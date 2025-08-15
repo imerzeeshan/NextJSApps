@@ -5,7 +5,7 @@ import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     const { id } = await params;
@@ -19,16 +19,27 @@ export async function GET(
     }
 
     const { name, data } = photo;
-    const fileExtension = name.split(".").pop() || "jpeg";
+    const fileExtension = (name.split(".").pop() || "jpeg").toLowerCase();
+
+    // Determine correct content type fallback
+    const validExtensions = ["jpeg", "jpg", "png", "gif", "webp", "avif"];
+    const safeExtension = validExtensions.includes(fileExtension)
+      ? fileExtension
+      : "jpeg";
+
+    // Dynamic cache control
+    const cacheHeader =
+      process.env.NODE_ENV === "production"
+        ? "public, max-age=31536000, immutable" // 1 year immutable cache
+        : "no-store, no-cache, must-revalidate, proxy-revalidate"; // always fetch latest in dev
 
     return new NextResponse(new Uint8Array(data), {
       headers: {
-        "Content-Type": `image/${fileExtension}`,
-        "Content-Disposition": "no-store", //! Prevents static caching
+        "Content-Type": `image/${safeExtension}`,
+        "Cache-Control": cacheHeader,
       },
     });
   } catch (error) {
-    // console.error(error);
     return NextResponse.json(
       { error: "Failed to fetch image" },
       { status: 500 }

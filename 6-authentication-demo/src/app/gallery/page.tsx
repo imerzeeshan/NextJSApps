@@ -11,6 +11,7 @@ type Image = {
 };
 
 export default function Home() {
+  const [visibleCount, setVisibleCount] = useState(10);
   const [images, setImages] = useState<Image[]>([]);
   const { sessionClaims } = useAuth();
   const isAdmin = sessionClaims?.metadata.role === "admin";
@@ -43,6 +44,16 @@ export default function Home() {
     if (typeof window !== "undefined") {
       getAllImages();
     }
+    const onScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 300
+      ) {
+        setVisibleCount((prev) => prev + 5);
+      }
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, [state?.success]);
 
   return (
@@ -76,7 +87,7 @@ export default function Home() {
           Image List
         </h1>
         <div className="flex flex-wrap gap-3 justify-center">
-          {images?.map((img) => (
+          {images?.slice(0, visibleCount)?.map((img) => (
             <div
               key={img.id}
               className="space-y-2 bg-purple-200 rounded text-gray-500 group"
