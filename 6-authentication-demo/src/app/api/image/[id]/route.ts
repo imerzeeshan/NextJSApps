@@ -35,3 +35,28 @@ export async function GET(
     );
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+
+    const photo = await prisma.photo.delete({
+      where: { id: Number(id) },
+    });
+
+    console.log(photo);
+    return NextResponse.json(
+      { success: true, message: "Image Deleted" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to Delete image" },
+      { status: 500 }
+    );
+  }
+}
