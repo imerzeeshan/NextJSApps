@@ -309,9 +309,11 @@ export const Navigation = () => {
               </SignedOut>
 
               <SignedIn>
+                <SignOutButton>
                 <button className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                   Sign Out
                 </button>
+                </SignOutButton>
               </SignedIn>
             </div>
           </div>
