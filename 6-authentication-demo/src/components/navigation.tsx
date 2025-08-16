@@ -119,17 +119,6 @@ export const Navigation = () => {
               >
                 Gallery
               </Link>
-              {isAdmin && (
-                <Link
-                  className={linkClass(
-                    "/admin",
-                    "text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400"
-                  )}
-                  href={"/admin"}
-                >
-                  Admin
-                </Link>
-              )}
             </div>
 
             {/* --- existing right side buttons untouched --- */}
@@ -165,16 +154,23 @@ export const Navigation = () => {
                     <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 z-50">
                       <div className="py-1">
                         <Link
+                          className={linkClass(
+                            "/user-profile",
+                            "text-sm px-4 block py-2 font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+                          )}
                           href="/user-profile"
                           onClick={() => setIsOpen(!isOpen)}
-                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
                           Profile
                         </Link>
                         {isAdmin && (
                           <Link
                             href="/admin"
-                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            onClick={() => setIsOpen(!isOpen)}
+                            className={linkClass(
+                              "/admin",
+                              "text-sm block px-4 py-2 font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+                            )}
                           >
                             Admin Panel
                           </Link>
@@ -298,6 +294,26 @@ export const Navigation = () => {
             )}
 
             {/* other SignedOut / SignedIn stuff remains same */}
+            <div className="flex items-center space-x-4">
+              <SignedOut>
+                <SignInButton>
+                  <button className="px-4 py-2 rounded-lg text-sm font-medium bg-transparent text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
+                    Sign In
+                  </button>
+                </SignInButton>
+                <SignUpButton>
+                  <button className="px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                    Sign Up
+                  </button>
+                </SignUpButton>
+              </SignedOut>
+
+              <SignedIn>
+                <button className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  Sign Out
+                </button>
+              </SignedIn>
+            </div>
           </div>
         </div>
       )}
