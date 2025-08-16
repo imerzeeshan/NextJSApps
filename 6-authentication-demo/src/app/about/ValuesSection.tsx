@@ -15,7 +15,10 @@ export const ValuesSection = ({
   subtitle,
   values,
 }: ValuesSectionProps) => (
-  <section className="max-w-6xl mx-auto px-6 py-16 md:py-24 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700">
+  <section
+    className="max-w-6xl mx-auto px-6 py-16 md:py-24 bg-white dark:bg-gray-800 rounded-2xl 
+  shadow-lg border border-gray-100 dark:border-gray-700"
+  >
     <div className="text-center mb-16">
       <h2 className="text-3xl font-bold mb-4">{title}</h2>
       <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">

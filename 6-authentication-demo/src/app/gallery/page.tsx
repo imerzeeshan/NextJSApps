@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useActionState, useEffect, useState } from "react";
 import { UploadState, uploadImage } from "./gallery.action";
 import { Trash } from "lucide-react";
+import Loading from "./loading";
+import FileUploadForm from "./FileUploadForm";
 
 type Image = {
   id: number;
@@ -13,6 +15,7 @@ type Image = {
 export default function Home() {
   const [visibleCount, setVisibleCount] = useState(10);
   const [images, setImages] = useState<Image[]>([]);
+  const [loading, setLoading] = useState(true);
   const { sessionClaims } = useAuth();
   const isAdmin = sessionClaims?.metadata.role === "admin";
 
@@ -24,11 +27,18 @@ export default function Home() {
   // console.log(isPending);
 
   const getAllImages = async () => {
-    const res = await fetch("/api/image", { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to fetch images");
-    const data = await res.json();
-    // console.log(data);
-    setImages(data);
+    try {
+      const res = await fetch("/api/image", { cache: "no-store" });
+      if (!res.ok) throw new Error("Failed to fetch images");
+      const data = await res.json();
+      // console.log(data);
+      setImages(data);
+      setLoading(false);
+    } catch (error) {
+      throw new Error("Failed to fetch images");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDeletePhoto = async (imageId: number) => {
@@ -63,22 +73,7 @@ export default function Home() {
     >
       {isAdmin && (
         <div>
-          <form action={formAction} className="space-x-5">
-            <input
-              className="border rounded p-2"
-              type="file"
-              name="file"
-              // onChange={(e) => setFile(e.target.files?.[0] || null)}
-            />
-            <button
-              type="submit"
-              disabled={isPending}
-              className="bg-blue-600 hover:bg-blue-700 py-2 px-3 rounded transition-all duration-300
-              disabled:cursor-not-allowed disabled:bg-gray-500"
-            >
-              Upload
-            </button>
-          </form>
+          <FileUploadForm formAction={formAction} isPending={isPending} />
         </div>
       )}
 
@@ -116,6 +111,7 @@ export default function Home() {
             </div>
           ))}
         </div>
+        {loading && <Loading />}
       </>
     </div>
   );

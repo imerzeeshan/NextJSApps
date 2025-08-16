@@ -71,18 +71,6 @@ export const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="flex space-x-6">
-              {/* {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400 
-                    ${link.signedIn && sessionClaims === null ? "hidden" : ""} 
-                    ${link.adminOnly && !isAdmin ? "hidden" : ""} 
-                    ${link.signedIn && !link.adminOnly ? "hidden" : ""}`}
-                >
-                  {link.name}
-                </Link>
-              ))} */}
               <Link
                 className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400`}
                 href={"/"}
@@ -99,7 +87,7 @@ export const Navigation = () => {
               </SignedIn>
               <Link
                 className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400`}
-                href={"/"}
+                href={"/about"}
               >
                 About
               </Link>
@@ -224,20 +212,6 @@ export const Navigation = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {/* {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`block px-3 py-2 rounded-md text-base font-medium ${
-                  link.adminOnly && !isAdmin ? "hidden" : ""
-                } ${
-                  link.signedIn ? "hidden sm:block" : ""
-                } text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700`}
-                onClick={toggleMobileMenu}
-              >
-                {link.name}
-              </Link>
-            ))} */}
             <Link
               className={`block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 
                 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700`}
@@ -260,7 +234,7 @@ export const Navigation = () => {
               className={`block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 
                 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700`}
               onClick={toggleMobileMenu}
-              href={"/"}
+              href={"/about"}
             >
               About
             </Link>

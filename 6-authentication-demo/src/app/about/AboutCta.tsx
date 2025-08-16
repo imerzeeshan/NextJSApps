@@ -20,7 +20,7 @@ export const AboutCta = ({
   primaryButton,
   secondaryButton,
 }: AboutCtaProps) => (
-  <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-24 text-center">
+  <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-24 text-center mt-10">
     <div className="max-w-4xl mx-auto px-6">
       <h2 className="text-3xl md:text-4xl font-bold mb-6">{title}</h2>
       <p className="mb-8 text-lg md:text-xl opacity-90">{subtitle}</p>

@@ -2,7 +2,10 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-300 py-10 mt-12 border-t border-gray-700">
+    <footer
+      className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-300 py-10
+     border-t border-gray-700"
+    >
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-3 gap-10">
         <div>
           <h3 className="text-lg font-semibold text-white mb-3">
@@ -56,7 +59,7 @@ export default function Footer() {
       </div>
 
       <div className="mt-8 border-t border-gray-700 pt-4 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} MyNextProject. All rights reserved.
+        © {new Date().getFullYear()} imerzeeshan. All rights reserved.
       </div>
     </footer>
   );
