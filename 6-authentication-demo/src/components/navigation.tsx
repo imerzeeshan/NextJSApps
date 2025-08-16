@@ -39,7 +39,7 @@ export const Navigation = () => {
   const linkClass = (path: string, base: string) =>
     `${base} ${
       pathname === path
-        ? "text-blue-600 dark:text-blue-400"
+        ? "text-blue-600 dark:text-blue-400 md:underline underline-offset-2"
         : "text-gray-700 dark:text-gray-300"
     }`;
 
@@ -125,7 +125,10 @@ export const Navigation = () => {
             <div className="flex items-center space-x-4">
               <SignedOut>
                 <SignInButton>
-                  <button className="px-4 py-2 rounded-lg text-sm font-medium bg-transparent text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
+                  <button
+                    className="px-4 py-2 rounded-lg text-sm font-medium text-blue-600 
+                  dark:text-blue-400 bg-gray-100/20 dark:hover:bg-blue-900/30 transition-colors"
+                  >
                     Sign In
                   </button>
                 </SignInButton>
@@ -151,8 +154,11 @@ export const Navigation = () => {
                   </button>
 
                   {isOpen && (
-                    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 z-50">
-                      <div className="py-1">
+                    <div
+                      className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 
+                    border border-gray-300 dark:border-gray-700 z-50"
+                    >
+                      <div className="pt-2">
                         <Link
                           className={linkClass(
                             "/user-profile",
@@ -176,7 +182,11 @@ export const Navigation = () => {
                           </Link>
                         )}
                         <SignOutButton>
-                          <button className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                          <button
+                            className="w-full text-center py-2 text-sm text-white bg-red-600 rounded 
+                           hover:bg-red-700 transition-all duration-300 cursor-pointer inset-1.5 border-2 border-gray-300
+                           dark:border-gray-700"
+                          >
                             Sign Out
                           </button>
                         </SignOutButton>
@@ -297,7 +307,10 @@ export const Navigation = () => {
             <div className="flex items-center space-x-4">
               <SignedOut>
                 <SignInButton>
-                  <button className="px-4 py-2 rounded-lg text-sm font-medium bg-transparent text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
+                  <button
+                    className="px-4 py-2 rounded-lg text-sm font-medium text-blue-600 
+                  dark:text-blue-400 bg-gray-100/20 dark:hover:bg-blue-900/30 transition-colors"
+                  >
                     Sign In
                   </button>
                 </SignInButton>
@@ -310,9 +323,12 @@ export const Navigation = () => {
 
               <SignedIn>
                 <SignOutButton>
-                <button className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
-                  Sign Out
-                </button>
+                  <button
+                    className="w-full rounded px-4 py-2 text-[16px] text-center font-medium text-white
+                  bg-red-600 hover:bg-red-700 transition-all ease-in-out duration-300"
+                  >
+                    Sign Out
+                  </button>
                 </SignOutButton>
               </SignedIn>
             </div>

@@ -13,11 +13,11 @@ interface StatsData {
   icon: React.ReactNode;
 }
 
-export const StatsGrid = () => {
+export const StatsGrid = ({ userLength }: { userLength: string }) => {
   const stats: StatsData[] = [
     {
       title: "Total Users",
-      value: "1,245",
+      value: userLength,
       color: "from-blue-500 to-blue-600",
       icon: <UsersIcon className="w-6 h-6" />,
     },

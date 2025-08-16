@@ -1,8 +1,7 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
 import { DashboardHeader } from "./DashboardHeader";
 import { ActivityFeed } from "./ActivityFeed";
 import { StatsGrid } from "./StatsGrid";
-import { resolve } from "path";
 
 export const metadata = {
   title: "ShanTech | Dashboard",
@@ -18,6 +17,9 @@ export default async function Dashboard() {
   // const authObj = await auth();
   // const userObj = await currentUser();
   // console.log(authObj, userObj);
+  const client = await clerkClient();
+  const usersCount: string = (await client.users.getUserList()).data.length;
+
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
   return (
@@ -27,7 +29,7 @@ export default async function Dashboard() {
         description="Welcome back! Here's what's happening with your app today."
       />
 
-      <StatsGrid />
+      <StatsGrid userLength={usersCount} />
       <ActivityFeed />
     </main>
   );
