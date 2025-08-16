@@ -68,8 +68,8 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen px-1 md:max-w-[90%] lg:max-w-[80%] mx-auto flex flex-col items-center 
-    space-y-3 pt-25"
+      className="min-h-screen md:max-w-[90%] lg:max-w-[80%] mx-auto flex flex-col items-center 
+    space-y-3 pt-25 pb-10"
     >
       {isAdmin && (
         <div>
@@ -78,7 +78,7 @@ export default function Home() {
       )}
 
       <>
-        <h1 className="text-2xl mt-10 underline underline-offset-2">
+        <h1 className="text-2xl my-15 text-violet-500 underline underline-offset-3">
           Image List
         </h1>
         <div className="flex flex-wrap gap-3 justify-center">

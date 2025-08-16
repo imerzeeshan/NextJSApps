@@ -22,7 +22,7 @@ export default function FileUploadForm({ formAction, isPending }: FileUploadForm
   };
 
   return (
-    <form action={formAction} className="flex items-center space-x-4">
+    <form action={formAction} className="flex flex-col gap-5 items-center md:flex-row">
       <div className="flex items-center justify-between w-80 border border-gray-300 rounded-lg px-3 py-2 bg-white shadow-sm">
         {/* Choose File button */}
         <label
@@ -62,7 +62,7 @@ export default function FileUploadForm({ formAction, isPending }: FileUploadForm
       <button
         type="submit"
         disabled={isPending}
-        className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg shadow 
+        className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded shadow 
         transition duration-300 disabled:cursor-not-allowed disabled:bg-gray-400"
       >
         {isPending ? "Uploading..." : "Upload"}

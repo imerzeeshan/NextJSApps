@@ -57,7 +57,7 @@ export async function DELETE(
       where: { id: Number(id) },
     });
 
-    console.log(photo);
+    // console.log(photo);
     return NextResponse.json(
       { success: true, message: "Image Deleted" },
       { status: 200 }
