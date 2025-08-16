@@ -18,7 +18,9 @@ export default async function Dashboard() {
   // const userObj = await currentUser();
   // console.log(authObj, userObj);
   const client = await clerkClient();
-  const usersCount: string = (await client.users.getUserList()).data.length;
+  const usersCount: string = (
+    await client.users.getUserList()
+  ).data.length.toString();
 
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
